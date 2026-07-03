@@ -3,9 +3,9 @@ import Constants from 'expo-constants';
 
 console.log('[API] api.ts loaded');
 
-const debuggerHost = Constants.expoConfig?.hostUri || Constants.manifest?.hostUri || Constants.debuggerHost || 'localhost';
-const machineIP = debuggerHost.split(':')[0];
-const API_BASE = `http://${machineIP}:5000/api`;
+const debuggerHost = Constants.expoConfig?.hostUri || Constants.manifest?.hostUri || Constants.debuggerHost;
+const machineIP = debuggerHost ? debuggerHost.split(':')[0] : null;
+const API_BASE = machineIP ? `http://${machineIP}:5000/api` : 'http://192.168.192.133:5000/api';
 
 let cachedToken: string | null = null;
 
