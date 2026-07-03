@@ -3,9 +3,11 @@ import Constants from 'expo-constants';
 
 console.log('[API] api.ts loaded');
 
-const debuggerHost = Constants.expoConfig?.hostUri || Constants.manifest?.hostUri || Constants.debuggerHost;
-const machineIP = debuggerHost ? debuggerHost.split(':')[0] : null;
-const API_BASE = machineIP ? `http://${machineIP}:5000/api` : 'http://192.168.192.133:5000/api';
+const hostUri = Constants.expoConfig?.hostUri || Constants.manifest?.hostUri;
+const machineIP = hostUri?.split(':')[0];
+const DEV_API = machineIP ? `http://${machineIP}:5000/api` : 'http://localhost:5000/api';
+const PROD_API = 'https://fitness-tracker-five-blond.vercel.app/api';
+const API_BASE = __DEV__ ? DEV_API : PROD_API;
 
 let cachedToken: string | null = null;
 
